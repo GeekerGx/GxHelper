@@ -100,7 +100,7 @@ namespace GxHelper.FileBase.ExcelHelper
                 }
                 for (int i = 0; i < workBook.NumberOfSheets; i++)
                 {
-                    sheet= workBook.GetSheetAt(0);
+                    sheet = workBook.GetSheetAt(0);
                     DataTable dt = new DataTable(sheet.SheetName);
                     ds.Tables.Add(dt);
                 }

@@ -13,7 +13,7 @@ namespace GxHelper.DataBase
 
         #region 域
 
-        static protected IDBBase DBB=null;
+        static protected IDBBase DBB = null;
 
         static string _strConn;
 
@@ -23,7 +23,7 @@ namespace GxHelper.DataBase
 
         public DBbase()
         {
-            if(DBB==null)
+            if (DBB == null)
             {
                 //数据库链接语句
                 _strConn = ConfigHelper.AppSettings("strConn");
@@ -40,7 +40,7 @@ namespace GxHelper.DataBase
 
         protected IDbConnection GetOpenConnection()
         {
-            if(DBB == null)
+            if (DBB == null)
             {
                 throw new Exception("数据库类型为空，请添加配置[DbType]。");
             }
@@ -54,7 +54,7 @@ namespace GxHelper.DataBase
                 connection.Open();
                 return connection;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception("数据库访问失败。错误提示：" + e.Message);
             }
