@@ -1,0 +1,163 @@
+﻿<#@ assembly name="System.Core.dll" #>
+<#@ assembly name="System.Data.dll" #>
+<#@ assembly name="System.Xml.dll" #>
+<#@ assembly name="System.Web.dll" #>
+<#@ assembly name="System.Data.OracleClient" #>
+<#@ assembly name="System.Data.DataSetExtensions.dll" #>
+
+<#@ import namespace="System" #>
+<#@ import namespace="System.Xml" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Web" #>
+<#@ import namespace="System.Data.OracleClient" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.IO" #>
+<#+
+	string sql = "Data Source=XCRS_DEV;User ID=XCRSDB;Password=credit123;Unicode=True";
+#>
+<#+
+	public List<SqlTable> GetSqlTableList()
+	{
+        DataTable dt = GetDataSet().Tables[0];
+        List<SqlTable> stl = BindTable(dt);
+        return BindColumn(dt, stl);
+	}
+    public DataSet GetDataSet()
+    {
+        DataSet ds = new DataSet();
+        OracleConnection con = new OracleConnection(sql);
+        sql = "SELECT "+
+			"A.Table_Name     TABLE_NAME, "+
+			"C.COMMENTS       TABLE_SUMMARY, "+
+			"A.column_name    COLUMN_NAME, "+                                                                                      
+			"A.data_type      DATA_TYPE, "+
+			"A.data_length    长度, "+
+			"A.data_precision 整数位, "+
+			"A.Data_Scale     小数位, "+
+			"A.nullable       允许空值, "+
+			"A.Data_default   缺省值, "+
+			"B.comments       SUMMARY "+
+			"FROM user_tab_columns A, user_col_comments B,user_tab_comments C "+
+			"WHERE a.COLUMN_NAME = b.column_name "+
+			"AND A.Table_Name = B.Table_Name "+
+			"AND A.Table_Name = C.Table_Name "+
+			"AND A.TABLE_NAME = 'TCRT_OBJECT' ";
+		
+		/*"SELECT " +
+        "D.NAME TABLE_NAME, " +
+        "A.NAME COLUMN_NAME, " +
+        "B.NAME DATA_TYPE, " +
+        "ISNULL(G.[VALUE],'') SUMMARY " +
+        "FROM " +
+        "SYSCOLUMNS A " +
+        "LEFT JOIN SYSTYPES B ON A.XUSERTYPE=B.XUSERTYPE " +
+        "INNER JOIN SYSOBJECTS D ON A.ID=D.ID AND (D.XTYPE='U 'or D.XTYPE='V ') " +
+        "LEFT JOIN sys.extended_properties G ON A.ID=G.major_id AND A.COLID=G.minor_id " +
+        "ORDER BY A.ID,A.COLORDER ";*/
+        con.Open();
+        OracleDataAdapter com = new OracleDataAdapter(sql, con);
+        com.Fill(ds);
+        con.Close();
+        return ds;
+    }
+    public List<SqlTable> BindTable(DataTable dt)
+    {
+        List<SqlTable> st = new List<SqlTable>();
+        var list= dt.AsEnumerable().Select(x => x["TABLE_NAME"].ToString()).Distinct();
+        foreach(var item in list)
+        {
+            SqlTable nst = new SqlTable();
+            nst.Name = item;
+            st.Add(nst);
+        }
+        return st;
+    }
+    public List<SqlTable> BindColumn(DataTable dt, List<SqlTable> lst)
+    {
+        foreach(SqlTable st_item in lst)
+        {
+            var drs = dt.AsEnumerable().Where(x=>x["TABLE_NAME"].ToString()== st_item.Name);
+            var list = from item in drs select new SqlColumn() {
+                Name= item["COLUMN_NAME"].ToString(),
+                DateType = item["DATA_TYPE"].ToString(),
+                Summary= item["SUMMARY"].ToString()
+            };
+            st_item.Columns.AddRange(list);
+        }
+        return lst;
+    }
+	public string Get_Insert(List<SqlColumn> lsc,string c=",")
+    {
+		string str="";
+		foreach(SqlColumn item in lsc)
+        {
+			if(item.Name!="id")
+            {
+				str+=c+item.Name;
+            }
+        }
+		return str.Substring(1);
+    }
+#>
+<#+ 
+	public class SqlTable
+    {
+        public string Name { get; set; }
+        public List<SqlColumn> Columns { get; set; }
+        public SqlTable()
+        {
+            Columns = new List<SqlColumn>();
+        }
+    }
+    public class SqlColumn
+    {
+        public string Name { get; set; }
+		string _DateType;
+        public string DateType {
+			get{
+				return _DateType;
+			}
+			set{
+				/*switch(value)
+                {
+                    case "bigint": _DateType = "long"; break;
+                    case "binary": _DateType = "byte[]"; break;
+                    case "bit": _DateType = "bool?"; break;
+                    case "char": _DateType = "string"; break;
+                    case "date": _DateType = "DateTime?"; break;
+                    case "datetime": _DateType = "DateTime?"; break;
+                    case "datetime2": _DateType = "DateTime?"; break;
+                    case "datetimeoffset": _DateType = "DateTimeOffset"; break;
+                    case "decimal": _DateType = "decimal?"; break;
+                    case "float": _DateType = "double"; break;
+                    case "image": _DateType = "byte[]"; break;
+                    case "int": _DateType = "int?"; break;
+                    case "money": _DateType = "decimal?"; break;
+                    case "nchar": _DateType = "string"; break;
+                    case "ntext": _DateType = "string"; break;
+                    case "longtext": _DateType = "string"; break;
+                    case "numeric": _DateType = "decimal?"; break;
+                    case "nvarchar": _DateType = "string"; break;
+                    case "real": _DateType = "Single"; break;
+                    case "smalldatetime": _DateType = "DateTime?"; break;
+                    case "smallint": _DateType = "short"; break;
+                    case "smallmoney": _DateType = "decimal?"; break;
+                    case "sql_variant": _DateType = "object"; break;
+                    case "sysname": _DateType = "object"; break;
+                    case "text": _DateType = "string"; break;
+                    case "time": _DateType = "TimeSpan"; break;
+                    case "timestamp": _DateType = "byte[]"; break;
+                    case "tinyint": _DateType = "byte"; break;
+                    case "uniqueidentifier": _DateType = "Guid"; break;
+                    case "varbinary": _DateType = "byte[]"; break;
+                    case "varchar": _DateType = "string"; break;
+                    case "xml": _DateType = "string"; break;
+					default:_DateType="object";break;
+                }*/
+				_DateType="string";
+			}
+		}
+		public string Summary{ get; set; }
+    }
+#>
