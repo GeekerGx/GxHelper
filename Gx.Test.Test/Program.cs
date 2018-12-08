@@ -25,14 +25,7 @@ namespace Gx.Test.Test
         }
         static void Test()
         {
-            StringBuilder content = new StringBuilder();
-            content.AppendFormat("Time：{0,20}", DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
-            content.AppendLine();
-            content.AppendFormat("用户组：{0,18}", "Gx");
-            content.AppendLine();
-            content.AppendFormat("累计：{0,18:C2}￥", 299.936);
-            content.AppendLine();
-            Console.WriteLine(content.ToString());
+            Console.WriteLine(DateTime.Now.ToString("HH:mm:ss.fff"));
         }
         
     }

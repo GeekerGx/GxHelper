@@ -18,7 +18,7 @@ namespace GxHelper.FileBase.LogHelper
             DateTime dt = DateTime.Now;
             StringBuilder sbMessage = new StringBuilder();
             sbMessage.AppendFormat("{0,-10}{1,-10}{2}",
-                dt.ToString("HH:mm:ss"),
+                dt.ToString("HH:mm:ss.fff"),
                 logState.ToString(),
                 message);
             var logFile = new FileHelper(FileBaes.GetLogPath, dt.ToString("yyyy-MM-dd") + ".txt");
