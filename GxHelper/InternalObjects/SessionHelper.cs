@@ -12,7 +12,7 @@ namespace GxHelper.InternalObjects
     /// v_0.0.1
     /// 2017年10月30日15:52:23
     /// </summary>
-    class SessionHelper
+    public class SessionHelper
     {
         #region 域
 
