@@ -42,6 +42,10 @@ namespace GxHelper.InternalObjects
                 return default(T);
             }
         }
+        public static void RemoveKey(string key)
+        {
+            HttpContext.Current.Session.Remove(key);
+        }
 
         public static void RemoveAll()
         {
