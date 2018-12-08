@@ -70,6 +70,9 @@ namespace GxHelper.FileBase
             using (var write = new StreamWriter(file, encoding))
             {
                 write.WriteLine(content);// 直接追加文件末尾，换行   
+                write.Flush();
+                write.Close();
+                write.Dispose();
             }
         }
 
