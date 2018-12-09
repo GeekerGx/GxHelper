@@ -11,6 +11,7 @@ using System.Diagnostics;
 using GxHelper.AttributeBase;
 using System.Linq;
 using System.Text;
+using GxHelper.FileBase.LogHelper;
 
 namespace Gx.Test.Test
 {
@@ -25,7 +26,7 @@ namespace Gx.Test.Test
         }
         static void Test()
         {
-            Console.WriteLine(DateTime.Now.ToString("HH:mm:ss.fff"));
+            LogHelper.Debug("123321");
         }
         
     }
