@@ -3,6 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GxHelper.DataBase;
+using GxHelper.DataBase.SqlHelper;
 
 namespace Gx.Test.UnitTest.DataBaseTest
 {
@@ -18,7 +19,7 @@ namespace Gx.Test.UnitTest.DataBaseTest
         [TestMethod]
         public void DeleteTest()
         {
-            string sql = SQLHelper.SetTable("people")
+            string sql = SqlHelper.SetTable("people")
                 .ToDeleteSQL();
             DapperHelper.GetService().Execute(sql);
         }
@@ -28,7 +29,7 @@ namespace Gx.Test.UnitTest.DataBaseTest
         [TestMethod]
         public void InsertTest()
         {
-            string sql = SQLHelper.SetTable("people")
+            string sql = SqlHelper.SetTable("people")
                 .SetFields("name")
                 .ToInsertSQL();
             var param = new[] {
@@ -45,13 +46,12 @@ namespace Gx.Test.UnitTest.DataBaseTest
         [TestMethod]
         public void UpdateTest()
         {
-            string sql = SQLHelper.SetTable("people")
+            string sql = SqlHelper.SetTable("people")
                 .SetFields("name")
-                .AddCondition("name",SQLHelper.Comparison.Like)
-                .AddOrCondition("name", SQLHelper.Comparison.Like, "2")
-                .AddOrCondition("name", SQLHelper.Comparison.Between)
-                .AddOrCondition("name",SQLHelper.Comparison.Between,"2012")
-                .AddOrCondition("name", SQLHelper.Comparison.Between, "2012","2013")
+                .AddWhere()
+                .AddAndCondition("name", Comparison.Like)
+                .AddOrCondition("name", Comparison.Like, "2")
+                .EndWhere()
                 .ToUpdateSQL();
             DapperHelper.GetService().Execute(sql, new { name = "哈1" });
         }
@@ -61,11 +61,13 @@ namespace Gx.Test.UnitTest.DataBaseTest
         [TestMethod]
         public void SelectTest()
         {
-            string sql = SQLHelper.SetTable("people")
+            string sql = SqlHelper.SetTable("people")
                 .SetFields("name")
-                .AddCondition("name", SQLHelper.Comparison.Like)
+                .AddWhere()
+                .AddAndCondition("name", Comparison.Like)
+                .EndWhere()
                 .ToSelectSQL();
-            var list= DapperHelper.GetService().Query<string>(sql,new { name= "%哈%" });
+            var list = DapperHelper.GetService().Query<string>(sql, new { name = "%哈%" });
         }
     }
 }

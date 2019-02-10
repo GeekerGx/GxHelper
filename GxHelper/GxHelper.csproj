@@ -116,7 +116,6 @@
     <Compile Include="DataBase\IDBBase.cs" />
     <Compile Include="DataBase\MySqlBase.cs" />
     <Compile Include="DataBase\OracleBase.cs" />
-    <Compile Include="DataBase\SQLHelper.cs" />
     <Compile Include="DataBase\SqlHelper\Condition.cs" />
     <Compile Include="DataBase\SqlHelper\ConditionSingle.cs" />
     <Compile Include="DataBase\SqlHelper\EnumHelper\Comparison.cs" />
