@@ -1,4 +1,5 @@
 ﻿using GxHelper.AttributeBase;
+using GxHelper.DataBase.SqlHelper.SqlEnum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace GxHelper.DataBase.SqlHelper
 {
     public class Join
     {
-        public JoinEnum _JoinEnum { get; set; }
+        internal JoinEnum _JoinEnum { get; set; }
         public string _TableName { get; set; }
         public SqlHelper _SqlHelper { get; set; }
         public Join(SqlHelper sqlHelper)
@@ -17,7 +18,7 @@ namespace GxHelper.DataBase.SqlHelper
             this._SqlHelper = sqlHelper;
             this._Condition = new Condition(_SqlHelper,this)
             {
-                _ConditionBase = new ConditionSingle("1", Comparison.Equal,"1")
+                _ConditionBase = new ConditionSingle("1", SqlHelper.Comparison.Equal,"1")
             };
         }
         public Condition _Condition { get; set; }

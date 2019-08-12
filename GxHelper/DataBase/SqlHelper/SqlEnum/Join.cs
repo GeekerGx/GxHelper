@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GxHelper.DataBase.SqlHelper
+namespace GxHelper.DataBase.SqlHelper.SqlEnum
 {
-    public enum JoinEnum
+    enum JoinEnum
     {
         [Enum(" LEFT JOIN")]
         LeftJoin,

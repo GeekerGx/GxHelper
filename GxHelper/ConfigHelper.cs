@@ -13,6 +13,44 @@ namespace GxHelper
     /// </summary>
     public class ConfigHelper
     {
+        public static string DbType
+        {
+            get
+            {
+                var str = AppSettings("DbType");
+                if (str.IsNullOrEmpty())
+                {
+                    throw new Exception("请添加配置[DbType]");
+                }
+                return str;
+            }
+        }
+        public static string strConn
+        {
+            get
+            {
+                var str = AppSettings("strConn");
+                if (str.IsNullOrEmpty())
+                {
+                    throw new Exception("请添加配置[strConn]");
+                }
+                return str;
+            }
+        }
+        public static string cookie
+        {
+            get
+            {
+                var str = AppSettings("cookie");
+                if (str.IsNullOrEmpty())
+                {
+                    throw new Exception("请添加配置[cookie]");
+                }
+                return str;
+            }
+        }
+
+
         #region 域
 
         #endregion

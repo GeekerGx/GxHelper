@@ -1,4 +1,5 @@
 ﻿using GxHelper.AttributeBase;
+using GxHelper.DataBase.SqlHelper.SqlEnum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +15,12 @@ namespace GxHelper.DataBase.SqlHelper
             this._SqlHelper = sqlGelper;
             this._Join = join;
         }
-        Condition _ConditionLeft { get; set; }
-        Connector _Connector { get; set; }
-        Condition _ConditionRight { get; set; }
-        SqlHelper _SqlHelper { get; set; }
-        Join _Join { get; set; }
-        bool IsBase
+        private Condition _ConditionLeft { get; set; }
+        private Connector _Connector { get; set; }
+        private Condition _ConditionRight { get; set; }
+        private SqlHelper _SqlHelper { get; set; }
+        private Join _Join { get; set; }
+        private bool IsBase
         {
             get
             {
@@ -37,19 +38,19 @@ namespace GxHelper.DataBase.SqlHelper
             }
             else
             {
-                str.AppendFormat(" ( {0} {1} {2} ) ", _ConditionLeft.ToString(), EnumHelper.GetEnumContent(_Connector) , _ConditionRight.ToString());
+                str.AppendFormat(" ( {0} {1} {2} ) ", _ConditionLeft.ToString(), EnumHelper.GetEnumContent(_Connector), _ConditionRight.ToString());
             }
             return str.ToString();
         }
-        public Condition AddAndCondition(string _FieldName, Comparison _Comparison, string _Param=null,bool isValue=true)
+        public Condition AddAndCondition(string _FieldName, SqlHelper.Comparison _Comparison, string _Param = null, bool isValue = true)
         {
             return AddCondition(Connector.And, new ConditionSingle(_FieldName, _Comparison, _Param, isValue));
         }
-        public Condition AddOrCondition(string _FieldName, Comparison _Comparison, string _Param = null, bool isValue = true)
+        public Condition AddOrCondition(string _FieldName, SqlHelper.Comparison _Comparison, string _Param = null, bool isValue = true)
         {
             return AddCondition(Connector.Or, new ConditionSingle(_FieldName, _Comparison, _Param, isValue));
         }
-        Condition AddCondition(Connector connector, ConditionSingle conditionBase)
+        private Condition AddCondition(Connector connector, ConditionSingle conditionBase)
         {
             return new Condition(_SqlHelper, _Join)
             {
@@ -58,9 +59,9 @@ namespace GxHelper.DataBase.SqlHelper
                 _ConditionRight = new Condition(_SqlHelper, _Join) { _ConditionBase = conditionBase }
             };
         }
-        Condition AddCondition(Connector connector, Condition condition)
+        private Condition AddCondition(Connector connector, Condition condition)
         {
-            return new Condition(_SqlHelper,_Join)
+            return new Condition(_SqlHelper, _Join)
             {
                 _ConditionLeft = this,
                 _Connector = connector,

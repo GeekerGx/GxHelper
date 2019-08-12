@@ -26,7 +26,7 @@ namespace GxHelper.FileBase
         /// <summary>
         /// 获取应用根地址
         /// </summary>
-        public static string GetServerPath
+        public static string ServerPath
         {
             get { return AppDomain.CurrentDomain.BaseDirectory; }
         }
@@ -34,17 +34,17 @@ namespace GxHelper.FileBase
         /// <summary>
         /// 获取日志根地址
         /// </summary>
-        public static string GetLogPath
+        public static string LogPath
         {
-            get { return GetServerPath + @"Log\"; }
+            get { return ServerPath + @"Log\"; }
         }
 
         /// <summary>
         /// 获取上传根地址
         /// </summary>
-        public static string GetUploadPath
+        public static string UploadPath
         {
-            get { return GetServerPath + @"Upload\"; }
+            get { return ServerPath + @"Upload\"; }
         }
         #endregion
 

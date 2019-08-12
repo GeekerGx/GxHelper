@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using GxHelper.AttributeBase;
 
-namespace GxHelper.DataBase.SqlHelper
+namespace GxHelper.DataBase.SqlHelper.SqlEnum
 {
     /// <summary>
     /// 连接符
     /// </summary>
-    public enum Connector
+    enum Connector
     {
         [Enum(" AND")]
         And,

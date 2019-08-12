@@ -21,7 +21,7 @@ namespace GxHelper.FileBase.LogHelper
                 dt.ToString("HH:mm:ss.fff"),
                 logState.ToString(),
                 message);
-            var logFile = new FileHelper(FileBaes.GetLogPath, dt.ToString("yyyy-MM-dd") + ".txt");
+            var logFile = new FileHelper(FileBaes.LogPath, dt.ToString("yyyy-MM-dd") + ".log");
             logFile.Write(sbMessage.ToString());
         }
         public static void Debug(string message)

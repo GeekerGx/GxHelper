@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace GxHelper.AttributeBase
 {
+    /// <summary>
+    /// excel类型标签属性
+    /// </summary>
     public class ExcelAttribute:Attribute
     {
         public string Name { get; set; }

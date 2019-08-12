@@ -8,6 +8,12 @@ namespace GxHelper.AttributeBase
 {
     public static class AttributeHelper
     {
+        /// <summary>
+        /// 获取枚举标签属性对象
+        /// </summary>
+        /// <typeparam name="T">自定义标签</typeparam>
+        /// <param name="enumItem">枚举值</param>
+        /// <returns></returns>
         public static T GetEnumAttribute<T>(this object enumItem) where T : Attribute
         {
             Type type = enumItem.GetType();

@@ -20,7 +20,7 @@ namespace GxHelper.InternalObjects
 
         private string value;
 
-        private static string appCookie = ConfigHelper.AppSettings("cookie");
+        private static string appCookie = ConfigHelper.cookie;
         #endregion
 
         #region 公共方法
@@ -80,7 +80,7 @@ namespace GxHelper.InternalObjects
             if (ck == null)
             {
 
-                ck = new HttpCookie(ConfigHelper.AppSettings("cookie"));
+                ck = new HttpCookie(ConfigHelper.cookie);
                 ck.Values.Add(this.key, this.value);
             }
             else

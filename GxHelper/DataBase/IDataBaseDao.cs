@@ -6,7 +6,7 @@ namespace GxHelper.DataBase
     /// 数据库工厂
     /// v_0.0.0
     /// </summary>
-    public interface IDBBase
+    interface IDataBaseDao
     {
         /// <summary>
         /// 创建Connection
@@ -14,5 +14,8 @@ namespace GxHelper.DataBase
         /// <param name="strConn"></param>
         /// <returns></returns>
         IDbConnection CreateConnection(string strConn);
+        IDbDataAdapter CreateDataAdapter();
+        IDbCommand CreateCommand();
+
     }
 }

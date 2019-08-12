@@ -12,6 +12,8 @@ using GxHelper.AttributeBase;
 using System.Linq;
 using System.Text;
 using GxHelper.FileBase.LogHelper;
+using GxHelper.DataBase;
+using GxHelper.DataBase.ExportSql;
 
 namespace Gx.Test.Test
 {
@@ -26,8 +28,8 @@ namespace Gx.Test.Test
         }
         static void Test()
         {
-            LogHelper.Debug("123321");
+            var dt = new { aa="234" }.ToJson();
+            Console.WriteLine(dt);
         }
-        
     }
 }

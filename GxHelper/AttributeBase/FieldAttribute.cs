@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace GxHelper.AttributeBase
 {
+    /// <summary>
+    /// 字段类型标签属性
+    /// </summary>
     public class FieldAttribute : Attribute
     {
         public string Field { get; set; }

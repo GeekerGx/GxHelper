@@ -111,22 +111,26 @@
   <ItemGroup>
     <Compile Include="AttributeBase\AttributeHelper.cs" />
     <Compile Include="AttributeBase\FieldAttribute.cs" />
-    <Compile Include="DataBase\Dapper.cs" />
-    <Compile Include="DataBase\DBbase.cs" />
-    <Compile Include="DataBase\IDBBase.cs" />
-    <Compile Include="DataBase\MySqlBase.cs" />
-    <Compile Include="DataBase\OracleBase.cs" />
+    <Compile Include="DataBase\DapperHelper.cs" />
+    <Compile Include="DataBase\DataBaseService.cs" />
+    <Compile Include="DataBase\ExportSql\ExportSqlService.cs" />
+    <Compile Include="DataBase\ExportSql\Entity\TableStructure.cs" />
+    <Compile Include="DataBase\ExportSql\ExportHelper.cs" />
+    <Compile Include="DataBase\ExportSql\IExportSqlDao.cs" />
+    <Compile Include="DataBase\ExportSql\MySqlDao.cs" />
+    <Compile Include="DataBase\IDataBaseDao.cs" />
+    <Compile Include="DataBase\MySqlDao.cs" />
+    <Compile Include="DataBase\OracleDao.cs" />
     <Compile Include="DataBase\SqlHelper\Condition.cs" />
     <Compile Include="DataBase\SqlHelper\ConditionSingle.cs" />
-    <Compile Include="DataBase\SqlHelper\EnumHelper\Comparison.cs" />
-    <Compile Include="DataBase\SqlHelper\EnumHelper\Connector.cs" />
-    <Compile Include="DataBase\SqlHelper\EnumHelper\EnumHelper.cs" />
-    <Compile Include="DataBase\SqlHelper\EnumHelper\Join.cs" />
-    <Compile Include="DataBase\SqlHelper\EnumHelper\Sort.cs" />
+    <Compile Include="DataBase\SqlHelper\SqlEnum\Connector.cs" />
+    <Compile Include="DataBase\SqlHelper\SqlEnum\EnumHelper.cs" />
+    <Compile Include="DataBase\SqlHelper\SqlEnum\Join.cs" />
+    <Compile Include="DataBase\SqlHelper\SqlEnum\Sort.cs" />
     <Compile Include="DataBase\SqlHelper\Join.cs" />
     <Compile Include="DataBase\SqlHelper\OrderBy.cs" />
     <Compile Include="DataBase\SqlHelper\SqlHelper.cs" />
-    <Compile Include="DataBase\SqlServerBase.cs" />
+    <Compile Include="DataBase\SqlServerDao.cs" />
     <Compile Include="DateTimeHelper.cs" />
     <Compile Include="AttributeBase\EnumAttribute.cs" />
     <Compile Include="FileBase\DirectoryHelper.cs" />
@@ -163,7 +167,9 @@
     <None Include="GxHelper.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="WeChat\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

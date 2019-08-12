@@ -1,9 +1,7 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GxHelper.DataBase;
 using GxHelper.DataBase.SqlHelper;
+using GxHelper.DataBase.SqlHelper.SqlEnum;
 
 namespace Gx.Test.UnitTest.DataBaseTest
 {
@@ -21,7 +19,7 @@ namespace Gx.Test.UnitTest.DataBaseTest
         {
             string sql = SqlHelper.SetTable("people")
                 .ToDeleteSQL();
-            DapperHelper.GetService().Execute(sql);
+            DapperHelper.Execute(sql);
         }
         /// <summary>
         /// 添加
@@ -38,7 +36,7 @@ namespace Gx.Test.UnitTest.DataBaseTest
                     new { name = "哈哈哈3" },
                     new { name = "哈哈哈4" },
                     new { name = "哈哈哈5" } };
-            DapperHelper.GetService().Execute(sql, param);
+            DapperHelper.Execute(sql, param);
         }
         /// <summary>
         /// 修改
@@ -49,11 +47,11 @@ namespace Gx.Test.UnitTest.DataBaseTest
             string sql = SqlHelper.SetTable("people")
                 .SetFields("name")
                 .AddWhere()
-                .AddAndCondition("name", Comparison.Like)
-                .AddOrCondition("name", Comparison.Like, "2")
+                .AddAndCondition("name", SqlHelper.Comparison.Like)
+                .AddOrCondition("name", SqlHelper.Comparison.Like, "2")
                 .EndWhere()
                 .ToUpdateSQL();
-            DapperHelper.GetService().Execute(sql, new { name = "哈1" });
+            DapperHelper.Execute(sql, new { name = "哈1" });
         }
         /// <summary>
         /// 修改
@@ -64,10 +62,10 @@ namespace Gx.Test.UnitTest.DataBaseTest
             string sql = SqlHelper.SetTable("people")
                 .SetFields("name")
                 .AddWhere()
-                .AddAndCondition("name", Comparison.Like)
+                .AddAndCondition("name", SqlHelper.Comparison.Like)
                 .EndWhere()
                 .ToSelectSQL();
-            var list = DapperHelper.GetService().Query<string>(sql, new { name = "%哈%" });
+            var list = DapperHelper.Query<string>(sql, new { name = "%哈%" });
         }
     }
 }

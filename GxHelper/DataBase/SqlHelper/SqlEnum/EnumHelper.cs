@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GxHelper.DataBase.SqlHelper
+namespace GxHelper.DataBase.SqlHelper.SqlEnum
 {
-    public static class EnumHelper
+    internal static class EnumHelper
     {
         public static string GetEnumContent(Enum item)
         {
