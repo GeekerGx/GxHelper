@@ -68,7 +68,8 @@ namespace GxHelper
                 default:
                     return str;
             }
-            
+            str = Regex.Replace(str.ToUpper(), "[^0-9A-F]", string.Empty);
+
             int ratio = (int)(8 / Math.Log(fromBase, 2));
             byte[] b = new byte[str.Length / ratio];
             for (int i = 0; i < str.Length / ratio; i++)
@@ -76,6 +77,22 @@ namespace GxHelper
                 b[i] = Convert.ToByte(str.Substring(i * ratio, ratio), fromBase);
             }
             return Encoding.UTF8.GetString(b);
+        }
+
+        /// <summary>
+        /// 字符串模板替换
+        /// <para>eg."My name is {name}."  new {name="Gx"} return "My name is Gx."</para>
+        /// </summary>
+        /// <param name="str">需要替换的文本模板</param>
+        /// <param name="obj">对象</param>
+        /// <returns></returns>
+        public static string TemplateReplace(this string str, object obj)
+        {
+            foreach (var p in obj.GetType().GetProperties())
+            {
+                str = str.Replace("{" + p.Name + "}", p.GetValue(obj).ToString());
+            }
+            return str;
         }
     }
 }
